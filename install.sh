@@ -89,7 +89,7 @@ echo "[+] Installing Docker and Docker Compose..."
 sudo apt install -y docker.io docker-compose
 sudo systemctl enable docker --now
 
-echo "[+] Fetching docker-compose.yml from WebSploit.org..."
+# Chnage this to checking for docker-compose.yml file exists, if not then error out with error message echo "[+] Fetching docker-compose.yml from WebSploit.org..."
 
 echo "[+] Starting containers..."
 cd /root
