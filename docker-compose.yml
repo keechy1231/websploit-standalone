@@ -7,150 +7,144 @@ services:
     image: santosomar/webgoat
     restart: unless-stopped
     networks:
-      websploit:
-        ipv4_address: 10.6.6.11
+      websploit_macvlan:
+        ipv4_address: 10.10.1.200 # make sure all ip addresses are on the correct subnet
 
   juice-shop:
     container_name: juice-shop
     image: santosomar/juice-shop
     restart: unless-stopped
     networks:
-      websploit:
-        ipv4_address: 10.6.6.12
+      websploit_macvlan:
+        ipv4_address: 10.10.1.201
 
   dvwa:
     container_name: dvwa
     image: santosomar/dvwa
     restart: unless-stopped
     networks:
-      websploit:
-        ipv4_address: 10.6.6.13
+      websploit_macvlan:
+        ipv4_address: 10.10.1.202
 
   mutillidae_2:
     container_name: mutillidae_2
     image: santosomar/mutillidae_2
     restart: unless-stopped
     networks:
-      websploit:
-        ipv4_address: 10.6.6.14
+      websploit_macvlan:
+        ipv4_address: 10.10.1.203
 
   dvna:
     container_name: dvna
     image: santosomar/dvna
     restart: unless-stopped
     networks:
-      websploit:
-        ipv4_address: 10.6.6.15
+      websploit_macvlan:
+        ipv4_address: 10.10.1.204
 
   hackazon:
     container_name: hackazon
     image: santosomar/hackazon
     restart: unless-stopped
     networks:
-      websploit:
-        ipv4_address: 10.6.6.16
+      websploit_macvlan:
+        ipv4_address: 10.10.1.205
 
   mayhem:
     container_name: mayhem
     image: santosomar/mayhem
     restart: unless-stopped
     networks:
-      websploit:
-        ipv4_address: 10.6.6.18
+      websploit_macvlan:
+        ipv4_address: 10.10.1.206
 
   rtv-safemode:
     container_name: rtv-safemode
     image: santosomar/rtv-safemode
     restart: unless-stopped
     networks:
-      websploit:
-        ipv4_address: 10.6.6.19
+      websploit_macvlan:
+        ipv4_address: 10.10.1.207
 
   galactic-archives:
     container_name: galactic-archives
     image: santosomar/galactic-archives
     restart: unless-stopped
     networks:
-      websploit:
-        ipv4_address: 10.6.6.20
+      websploit_macvlan:
+        ipv4_address: 10.10.1.208
 
   yascon-hackme:
     container_name: yascon-hackme
     image: santosomar/yascon-hackme
     restart: unless-stopped
     networks:
-      websploit:
-        ipv4_address: 10.6.6.21
+      websploit_macvlan:
+        ipv4_address: 10.10.1.209
 
   secretcorp-branch1:
     container_name: secretcorp-branch1
     image: santosomar/secretcorp-branch1
     restart: unless-stopped
     networks:
-      websploit:
-        ipv4_address: 10.6.6.22
+      websploit_macvlan:
+        ipv4_address: 10.10.1.210
 
   gravemind:
     container_name: gravemind
     image: santosomar/gravemind
     restart: unless-stopped
     networks:
-      websploit:
-        ipv4_address: 10.6.6.23
+      websploit_macvlan:
+        ipv4_address: 10.10.1.211
 
   dc30_01:
     container_name: dc30_01
     image: santosomar/dc30_01:latest
     restart: unless-stopped
     networks:
-      websploit:
-        ipv4_address: 10.6.6.24
+      websploit_macvlan:
+        ipv4_address: 10.10.1.212
 
   dc30_02:
     container_name: dc30_02
     image: santosomar/dc30_02:latest
     restart: unless-stopped
     networks:
-      websploit:
-        ipv4_address: 10.6.6.25
+      websploit_macvlan:
+        ipv4_address: 10.10.1.213
 
   y-wing:
     container_name: y-wing
     image: santosomar/ywing:latest
     restart: unless-stopped
     networks:
-      websploit:
-        ipv4_address: 10.6.6.26
+      websploit_macvlan:
+        ipv4_address: 10.10.1.214
 
-  # DEF CON 31 Network - websploit2
   dc31_01:
     container_name: dc31_01
     image: santosomar/dc31_01:latest
     restart: unless-stopped
     networks:
-      websploit2:
-        ipv4_address: 10.7.7.21
+      websploit_macvlan:
+        ipv4_address: 10.10.1.215
 
   dc31_03:
     container_name: dc31_03
     image: santosomar/dc31_03:latest
     restart: unless-stopped
     networks:
-      websploit2:
-        ipv4_address: 10.7.7.23
+      websploit_macvlan:
+        ipv4_address: 10.10.1.216
 
-# Network configuration
 networks:
-  websploit:
-    driver: bridge
+  websploit_macvlan:
+    driver: macvlan
+    driver_opts:
+      parent: eth0  # <-- Replace this with your actual interface name
     ipam:
       config:
-        - subnet: 10.6.6.0/24
-          gateway: 10.6.6.1
-
-  websploit2:
-    driver: bridge
-    ipam:
-      config:
-        - subnet: 10.7.7.0/24
-          gateway: 10.7.7.1
+        - subnet: 10.10.1.0/24 # Change this to your local subnet
+          gateway: 10.10.1.1 # Change this to your Gateway
+          ip_range: 10.10.1.200/29  # Optional limit
