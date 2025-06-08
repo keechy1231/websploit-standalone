@@ -9,11 +9,11 @@ clear
 echo -e "\n\e[96mWebSploit Lab Environment\e[39m"
 echo -e "by Omar Santos (@santosomar)"
 echo -e "-------------------------------------------"
-echo -e "Internal Hacking Networks: \e[93m10.6.6.0/24\e[39m and \e[93m10.7.7.0/24\e[39m\n"
+echo -e "Internal Hacking Networks: \e[93m10.10.1.0/24\e"
 
 # Show bridge networks
 echo -e "Your configured bridge network interfaces:"
-ip -c -brie a | grep -E "10\.6\.6\.1|10\.7\.7\.1" || echo -e "\e[91mNo matching interfaces found.\e[39m"
+ip -c -brie a | grep -E "10\.10\.10\.1" || echo -e "\e[91mNo matching interfaces found.\e[39m"
 
 # Check if Docker is installed
 if ! command -v docker &> /dev/null; then
@@ -42,7 +42,7 @@ printf "+------------------------+---------------+\n"
 # Loop through running containers
 docker ps --format "{{.Names}}" | while read -r container; do
     ip=$(get_container_ip "$container")
-    if [[ $ip == 10.6.6.* || $ip == 10.7.7.* ]]; then
+    if [[ $ip == 10.10.1.* ]]; then
         printf "| %-22s | %-13s |\n" "$container" "$ip"
     fi
 done
